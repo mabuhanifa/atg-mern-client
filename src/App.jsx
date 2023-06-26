@@ -1,4 +1,12 @@
+import { Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
 
 export default function App() {
-  return <div className="bg-red-500">App</div>;
+  return (
+    <Routes>
+      <Route element={<Home />} path="/" />
+      <Route element={<Login />} path="/login" />
+    </Routes>
+  );
 }
