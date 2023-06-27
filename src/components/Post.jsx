@@ -22,6 +22,7 @@ export default function Post({ post }) {
     e.preventDefault();
 
     if (!userId) return alert("Please login to comment");
+
     const comment = {
       text: e.target.comment.value,
       userId: userId,
@@ -71,7 +72,7 @@ export default function Post({ post }) {
         <div className="shad p-5 rounded-lg">
           <p className="text-sm">
             <span>Posted By : </span>
-            <span className="font-[500]">{post?.user.username} </span>
+            <span className="font-[500]">{post?.user?.username} </span>
           </p>
           <h1 className="text-xl font-bold my-2">{post.title}</h1>
           <p>{post.description}</p>

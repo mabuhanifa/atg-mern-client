@@ -15,7 +15,7 @@ export default function Nav() {
 
   return (
     <nav>
-      <div className="md:flex md:justify-between p-10 shad ">
+      <div className="md:flex md:justify-between p-10 shad rounded-3xl">
         <div>
           <p>
             Logged In User :{" "}
