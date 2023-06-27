@@ -9,6 +9,8 @@ export default function CreatePost() {
   const createPost = async (e) => {
     e.preventDefault();
 
+    if (!userId) return alert("Please login to create a post");
+
     if (e.target.title.value === "" || e.target.description.value === "") {
       toast.error("Please fill all the fields");
       return;
@@ -23,13 +25,16 @@ export default function CreatePost() {
 
     if (!userId) return alert("Please login to comment");
 
-    const res = await fetch(`https://gold-determined-cricket.cyclic.app/api/posts`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(post),
-    });
+    const res = await fetch(
+      `https://gold-determined-cricket.cyclic.app/api/posts`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(post),
+      }
+    );
     const data = await res.json();
     if (data.success) {
       toast.success("Post added successfully");
