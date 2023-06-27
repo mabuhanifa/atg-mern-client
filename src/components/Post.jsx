@@ -2,17 +2,21 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { BiSolidLike } from "react-icons/bi";
+import { useProvider } from "../contextAPI/context";
 import Comment from "./Comment";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
   const id = post._id;
+  const { forceUpdate } = useProvider();
 
   useEffect(() => {}, []);
   //   e.target.comment.value
   const handleComment = async (e) => {
     e.preventDefault();
+
     const userId = JSON.parse(localStorage.getItem("loggedUser")).id;
+
     if (!userId) return alert("Please login to comment");
     const comment = {
       text: e.target.comment.value,
@@ -30,8 +34,9 @@ export default function Post({ post }) {
 
     if (data.success) {
       toast.success("comment added successfully");
+      forceUpdate();
+      e.target.comment.value = "";
     }
-    
   };
 
   return (
@@ -60,6 +65,7 @@ export default function Post({ post }) {
                 type="text"
                 className="px-5 py-2 bg-gray-300 my-2 rounded"
                 name="comment"
+                placeholder="Write a comment"
               />
               <br />
               <input
