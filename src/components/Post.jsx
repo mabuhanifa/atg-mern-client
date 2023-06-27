@@ -2,6 +2,7 @@ import { useState } from "react";
 /* eslint-disable react/prop-types */
 
 import { BiSolidLike } from "react-icons/bi";
+import Comment from "./Comment";
 
 export default function Post({ post }) {
   const [like, setLike] = useState(false);
@@ -28,10 +29,26 @@ export default function Post({ post }) {
           </div>
           <div className="my-3">
             <form>
-              <textarea type="text" className="px-5 py-2 bg-gray-300 my-2 rounded"/>
+              <textarea
+                type="text"
+                className="px-5 py-2 bg-gray-300 my-2 rounded"
+              />
               <br />
-              <input type="submit" className="cursor-pointer px-5 py-1 bg-blue-500 text-white" value={"Write a comment"}/>
+              <input
+                type="submit"
+                className="cursor-pointer px-5 py-1 bg-blue-500 text-white"
+                value={"Write a comment"}
+              />
             </form>
+          </div>
+
+          <div>
+            <h1>Comments</h1>
+            <div className="flex flex-col">
+              {post.comments.map((comment) => (
+                <Comment comment={comment} key={comment.id} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
