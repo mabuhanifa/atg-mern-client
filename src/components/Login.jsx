@@ -1,12 +1,15 @@
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useProvider } from "../contextAPI/context";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { loggedUser, setLoggedUser } = useProvider();
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  console.log(loggedUser);
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -14,7 +17,7 @@ export default function Login() {
       setError("All fields are required");
       return;
     }
-    
+
     const res = await fetch("http://localhost:5000/api/login", {
       method: "POST",
       headers: {
@@ -26,14 +29,20 @@ export default function Login() {
     console.log(data);
     if (data.token) {
       localStorage.setItem("loginToken", data.token);
-      navigate("/");
+      setLoggedUser(data.data);
+      toast.success("Login Successfull navigating to home page");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } else {
+      toast.error("Invalid Credentials");
       setError(data.message);
     }
   };
 
   return (
     <div className="mt-20">
+      <Toaster />
       {error && (
         <h2 className="text-center text-red-500 font-[500]">{error}</h2>
       )}

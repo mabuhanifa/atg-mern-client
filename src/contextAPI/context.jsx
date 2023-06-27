@@ -1,9 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
 const Context = createContext();
 
 const Provider = ({ children }) => {
-  return <Context.Provider value={"Hi"}>{children}</Context.Provider>;
+  const [loggedUser, setLoggedUser] = useState({});
+  return (
+    <Context.Provider value={{ loggedUser, setLoggedUser }}>
+      {children}
+    </Context.Provider>
+  );
 };
 
 export default Provider;

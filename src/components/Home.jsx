@@ -1,9 +1,10 @@
-import { useProvider } from "../contextAPI/context";
+import { Toaster } from "react-hot-toast";
 
 export default function Home() {
-    const state = useProvider();
-    console.log(state);
+   
   return (
-    <div>Home</div>
+    <div>
+      <Toaster />
+    </div>
   )
 }
