@@ -29,6 +29,7 @@ export default function Login() {
     console.log(data);
     if (data.token) {
       localStorage.setItem("loginToken", data.token);
+      localStorage.setItem("loggedUser", JSON.stringify(data.data));
       setLoggedUser(data.data);
       toast.success("Login Successfull navigating to home page");
       setTimeout(() => {
