@@ -20,7 +20,7 @@ export default function Nav() {
           <p>
             Logged In User :{" "}
             <span
-              className={` text-white px-2 py-1 rounded-3xl font-bold ${
+              className={`text-white px-2 py-1 rounded-3xl font-bold ${
                 userId?.username ? "bg-blue-600" : "bg-red-600"
               }`}
             >
@@ -31,7 +31,7 @@ export default function Nav() {
         <div>
           {userId?.username ? (
             <button
-              className="flex items-center gap-2 text-white bg-red-600 px-4 py-2 rounded-3xl"
+              className="flex items-center gap-2 text-white bg-red-600 px-4 py-2 rounded-3xl my-5 sm:my-0"
               onClick={handleLogout}
             >
               Log Out
@@ -40,7 +40,7 @@ export default function Nav() {
               </span>
             </button>
           ) : (
-            <button className="px-5 py-2 bg-indigo-700 text-white font-bold rounded-lg">
+            <button className="px-5 py-2 bg-indigo-700 text-white font-bold rounded-lg my-5 sm:my-0">
               <Link to="/login">Login</Link>
             </button>
           )}

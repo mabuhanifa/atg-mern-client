@@ -2,11 +2,13 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { BiSolidLike } from "react-icons/bi";
+import { BsTrash } from "react-icons/bs";
 import { useProvider } from "../contextAPI/context";
 import Comment from "./Comment";
 
 export default function Post({ post }) {
   const userId = JSON.parse(localStorage.getItem("loggedUser"))?.id;
+  const isMine = post.user._id === userId;
 
   const isLiked = post.likes.some((p) => p._id === userId);
 
@@ -28,13 +30,16 @@ export default function Post({ post }) {
       userId: userId,
     };
 
-    const res = await fetch(`http://localhost:5000/api/posts/${id}/comment`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(comment),
-    });
+    const res = await fetch(
+      `https://gold-determined-cricket.cyclic.app/api/posts/${id}/comment`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(comment),
+      }
+    );
     const data = await res.json();
 
     if (data.success) {
@@ -47,13 +52,16 @@ export default function Post({ post }) {
   const handleLike = async () => {
     if (!userId) return alert("Please login to like a post");
 
-    const res = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userId: userId }),
-    });
+    const res = await fetch(
+      `https://gold-determined-cricket.cyclic.app/api/posts/${id}/like`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: userId }),
+      }
+    );
 
     const data = await res.json();
 
@@ -74,7 +82,14 @@ export default function Post({ post }) {
             <span>Posted By : </span>
             <span className="font-[500]">{post?.user?.username} </span>
           </p>
-          <h1 className="text-xl font-bold my-2">{post.title}</h1>
+          <div className="flex items-center justify-between gap-x-2">
+            <h1 className="text-xl font-bold my-2">{post.title}</h1>
+            {isMine && (
+              <button className="text-red-500" onClick={() => {}}>
+                <BsTrash size={25} />
+              </button>
+            )}
+          </div>
           <p>{post.description}</p>
           <div className="my-2 flex items-center gap-x-5">
             <button onClick={handleLike}>
@@ -97,7 +112,7 @@ export default function Post({ post }) {
               <br />
               <input
                 type="submit"
-                className="cursor-pointer px-5 py-1 bg-blue-500 text-white"
+                className="cursor-pointer px-5 py-1 bg-blue-500 text-white rounded"
                 value={"Post comment"}
               />
             </form>

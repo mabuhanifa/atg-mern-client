@@ -23,7 +23,7 @@ export default function CreatePost() {
 
     if (!userId) return alert("Please login to comment");
 
-    const res = await fetch(`http://localhost:5000/api/posts`, {
+    const res = await fetch(`https://gold-determined-cricket.cyclic.app/api/posts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,6 @@ export default function CreatePost() {
       body: JSON.stringify(post),
     });
     const data = await res.json();
-    console.log(data);
     if (data.success) {
       toast.success("Post added successfully");
       forceUpdate();
@@ -40,8 +39,9 @@ export default function CreatePost() {
     }
   };
   return (
-    <div className="my-10 shad rounded-xl">
-      <div className="p-5 ">
+    <div className="my-5 shad rounded-xl">
+      <div className="p-5">
+        <h1 className="text-2xl font-bold text-center mb-5">Create New Post</h1>
         <form onSubmit={createPost}>
           <input
             type="text"
