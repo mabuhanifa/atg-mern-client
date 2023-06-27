@@ -4,7 +4,7 @@ import Posts from "./Posts";
 export default function Home() {
    
   return (
-    <div>
+    <div className="px-20 py-10">
       <Toaster />
       <Posts/>
     </div>

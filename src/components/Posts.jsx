@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Post from "./Post";
 
 export default function Posts() {
   const [posts, setPosts] = useState([]);
@@ -10,6 +11,14 @@ export default function Posts() {
     };
     fetchPosts();
   }, []);
-  console.log(posts);
-  return <div>Posts</div>;
+  
+  return (
+    <div >
+      <div>
+        {posts.map((post) => (
+          <Post post={post} key={post._id} />
+        ))}
+      </div>
+    </div>
+  );
 }
