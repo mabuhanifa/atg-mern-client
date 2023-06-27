@@ -82,7 +82,7 @@ export default function Signup() {
           <br />
           <input
             type="button"
-            value="Login"
+            value="Create Account"
             className="px-5 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold cursor-pointer my-5"
             onClick={handleSignup}
           />
