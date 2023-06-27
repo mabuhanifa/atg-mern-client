@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
@@ -32,9 +33,12 @@ export default function Signup() {
     });
     const data = await res.json();
     console.log(data);
+
     if (data.status === "success") {
-      localStorage.setItem("loginToken", data.token);
-      navigate("/login");
+      toast.success(data.message);
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } else {
       setError(data.message);
     }
@@ -42,6 +46,7 @@ export default function Signup() {
 
   return (
     <div className="mt-20">
+      <Toaster />
       {error && (
         <h2 className="text-center text-red-500 font-[500]">{error}</h2>
       )}

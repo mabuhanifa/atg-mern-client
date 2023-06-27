@@ -44,7 +44,7 @@ export default function Post({ post }) {
   };
 
   const handleLike = async () => {
-    const userId = JSON.parse(localStorage.getItem("loggedUser")).id;
+    if (!userId) return alert("Please login to like a post");
 
     const res = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
       method: "PUT",
@@ -97,7 +97,7 @@ export default function Post({ post }) {
               <input
                 type="submit"
                 className="cursor-pointer px-5 py-1 bg-blue-500 text-white"
-                value={"Write a comment"}
+                value={"Post comment"}
               />
             </form>
           </div>
