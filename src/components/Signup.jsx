@@ -80,7 +80,7 @@ export default function Signup() {
           <input
             type="button"
             value="Login"
-            className="px-5 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold cursor-pointer "
+            className="px-5 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold cursor-pointer my-5"
             onClick={handleSignup}
           />
         </form>

@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Reset() {
   const navigate = useNavigate();
+  
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const handleSignup = async (e) => {
+
+  const handleReset = async (e) => {
     e.preventDefault();
 
     if (
@@ -45,14 +47,9 @@ export default function Reset() {
       {error && (
         <h2 className="text-center text-red-500 font-[500]">{error}</h2>
       )}
-      <h2 className="text-center my-5 font-[500]">
-        Already have an account ?
-        <span className="bg-indigo-600 text-white ml-2 px-2 py-1 border rounded">
-          <Link to="/login"> Sign In</Link>
-        </span>
-      </h2>
+      <h2 className="text-center my-5 font-[500]">Reset Password</h2>
       <div className="flex justify-center items-center ">
-        <form className="shad p-10 rounded-lg" onSubmit={handleSignup}>
+        <form className="shad p-10 rounded-lg" onSubmit={handleReset}>
           <input
             type="text"
             className="px-5 py-2 rounded bg-slate-300 placeholder-black"
@@ -73,15 +70,15 @@ export default function Reset() {
             type="password"
             className="px-5 py-2 rounded bg-slate-300  placeholder-black"
             name="password"
-            placeholder="Enter Password"
+            placeholder="Enter New Password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
           <input
             type="button"
-            value="Login"
-            className="px-5 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold cursor-pointer "
-            onClick={handleSignup}
+            value="Reset Password"
+            className="px-5 py-2 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-bold cursor-pointer my-5"
+            onClick={handleReset}
           />
         </form>
       </div>
