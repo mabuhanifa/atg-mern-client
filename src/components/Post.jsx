@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { BiSolidLike } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
@@ -8,6 +8,7 @@ import Comment from "./Comment";
 
 export default function Post({ post }) {
   const userId = JSON.parse(localStorage.getItem("loggedUser"))?.id;
+
   const isMine = post.user._id === userId;
 
   const isLiked = post.likes.some((p) => p._id === userId);
@@ -18,8 +19,27 @@ export default function Post({ post }) {
 
   const { forceUpdate } = useProvider();
 
-  useEffect(() => {}, []);
-  //   e.target.comment.value
+  const handleDelete = async () => {
+    if (!isMine) return alert("You can't delete this post");
+
+    const res = await fetch(
+      `https://gold-determined-cricket.cyclic.app/api/posts/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    if (data.success) {
+      toast.success("Post deleted successfully");
+      forceUpdate();
+    }
+  };
+
   const handleComment = async (e) => {
     e.preventDefault();
 
@@ -85,7 +105,7 @@ export default function Post({ post }) {
           <div className="flex items-center justify-between gap-x-2">
             <h1 className="text-xl font-bold my-2">{post.title}</h1>
             {isMine && (
-              <button className="text-red-500" onClick={() => {}}>
+              <button className="text-red-500" onClick={handleDelete}>
                 <BsTrash size={25} />
               </button>
             )}
