@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Reset() {
   const navigate = useNavigate();
@@ -47,6 +47,12 @@ export default function Reset() {
       {error && (
         <h2 className="text-center text-red-500 font-[500]">{error}</h2>
       )}
+      <h2 className="text-center my-5 font-[500]">
+        Already have an account ?
+        <span className="bg-indigo-600 text-white ml-2 px-2 py-1 border rounded">
+          <Link to="/login"> Sign In</Link>
+        </span>
+      </h2>
       <h2 className="text-center my-5 font-[500]">Reset Password</h2>
       <div className="flex justify-center items-center ">
         <form className="shad p-10 rounded-lg" onSubmit={handleReset}>

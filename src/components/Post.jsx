@@ -6,16 +6,20 @@ import { useProvider } from "../contextAPI/context";
 import Comment from "./Comment";
 
 export default function Post({ post }) {
-  const [like, setLike] = useState(false);
+  const userId = JSON.parse(localStorage.getItem("loggedUser"))?.id;
+
+  const isLiked = post.likes.some((p) => p._id === userId);
+
+  const [like, setLike] = useState(isLiked);
+
   const id = post._id;
+
   const { forceUpdate } = useProvider();
 
   useEffect(() => {}, []);
   //   e.target.comment.value
   const handleComment = async (e) => {
     e.preventDefault();
-
-    const userId = JSON.parse(localStorage.getItem("loggedUser")).id;
 
     if (!userId) return alert("Please login to comment");
     const comment = {
@@ -39,6 +43,28 @@ export default function Post({ post }) {
     }
   };
 
+  const handleLike = async () => {
+    const userId = JSON.parse(localStorage.getItem("loggedUser")).id;
+
+    const res = await fetch(`http://localhost:5000/api/posts/${id}/like`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userId }),
+    });
+
+    const data = await res.json();
+
+    console.log(data);
+
+    if (data.success) {
+      toast.success(data.message);
+      forceUpdate();
+    }
+    setLike((m) => !m);
+  };
+
   return (
     <div className="my-5">
       <div>
@@ -50,7 +76,7 @@ export default function Post({ post }) {
           <h1 className="text-xl font-bold my-2">{post.title}</h1>
           <p>{post.description}</p>
           <div className="my-2 flex items-center gap-x-5">
-            <button onClick={() => setLike(!like)}>
+            <button onClick={handleLike}>
               {like ? (
                 <BiSolidLike size={25} className="text-blue-500" />
               ) : (

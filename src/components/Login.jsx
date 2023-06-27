@@ -5,11 +5,11 @@ import { useProvider } from "../contextAPI/context";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { loggedUser, setLoggedUser } = useProvider();
+  const { setLoggedUser } = useProvider();
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  console.log(loggedUser);
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
