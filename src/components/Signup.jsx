@@ -32,8 +32,6 @@ export default function Signup() {
       body: JSON.stringify({ email, username, password }),
     });
     const data = await res.json();
-    console.log(data);
-
     if (data.status === "success") {
       toast.success(data.message);
       setTimeout(() => {

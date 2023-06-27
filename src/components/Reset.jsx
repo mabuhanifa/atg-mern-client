@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Reset() {
   const navigate = useNavigate();
-  
+
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -25,18 +26,20 @@ export default function Reset() {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/api/register", {
-      method: "POST",
+    const res = await fetch("http://localhost:5000/api/reset", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, username, password }),
+      body: JSON.stringify({ email, username, newPassword: password }),
     });
     const data = await res.json();
     console.log(data);
     if (data.status === "success") {
-      localStorage.setItem("loginToken", data.token);
-      navigate("/login");
+      toast.success(data.message, { duration: 2000 });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } else {
       setError(data.message);
     }
@@ -44,6 +47,7 @@ export default function Reset() {
 
   return (
     <div className="mt-20">
+      <Toaster />
       {error && (
         <h2 className="text-center text-red-500 font-[500]">{error}</h2>
       )}
